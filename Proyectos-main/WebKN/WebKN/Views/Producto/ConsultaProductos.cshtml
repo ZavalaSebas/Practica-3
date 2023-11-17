@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebKN.Entities.ProductoEnt>
+
+@{
+    ViewBag.Title = "ConsultaProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Información de Productos</h4>
+
+            <div style="text-align:right">
+                <a class="btn btn-primary" href="@Url.Action("RegistrarProducto", "Producto")">Agregar</a>
+            </div>
+            <br>
+
+            <table id="tableShow" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Vista Previa</th>
+                        <th>Cambiar Estado</th>
+                        <th>Actualizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td>@item.Descripcion</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.Precio</td>
+                            @if (item.Estado)
+                            {
+                                <td>Activo</td>
+                            }
+                            else
+                            {
+                                <td>Inactivo</td>
+                            }
+                            <td style="text-align:center"><img src="@item.Imagen" style="width:125px; height:125px"></td>
+
+                            <td style="text-align:center">
+                                <a href="@Url.Action("CambiarEstadoProducto", "Producto", new { conProducto = item.ConProducto })"><i class="fa fa-exchange fa-lg"></i></a>
+                            </td>
+
+                            <td style="text-align:center">
+                                <a href="@Url.Action("ActualizarProducto", "Producto", new { q = item.ConProducto })"><i class="fa fa-edit fa-lg"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tableShow').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    });
+</script>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebKN.Entities.ProductoEnt>
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img src="@item.Imagen" width="150" height="150">
+                    <h5 class="card-title">@item.Nombre</h5>
+                    <p class="card-text">@item.Descripcion</p>
+                    <p class="card-text">Unidades: @item.Cantidad - ¢ @item.Precio</p>
+
+
+
+                    @if (Session["ConUsuario"] != null)
+                    {
+                        <div>
+                            <a href="#" class="btn btn-primary"><i class="fa fa-cart-plus"></i></a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
